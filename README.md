@@ -29,4 +29,4 @@ This is an interactive tic-tac-toe game implemented using HTML, CSS and JavaScri
 
 ## Setup
 
-To run this project locally, simply clone the repository and open the index.html file in your web browser.
+ To run this project locally, simply clone the repository and open the index.html file in your web browser.
