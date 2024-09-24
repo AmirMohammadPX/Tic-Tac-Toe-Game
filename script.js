@@ -177,7 +177,7 @@ function computerMove() {
     let index;
     switch (difficulty) {
         case 'easy':
-            index = Math.random() < 0.41 ? getBestMove() : getRandomEmptyCell();
+            index = Math.random() < 0.51 ? getBestMove() : getRandomEmptyCell();
             break;
         case 'medium':
             index = Math.random() < 0.76 ? getBestMove() : getRandomEmptyCell();
