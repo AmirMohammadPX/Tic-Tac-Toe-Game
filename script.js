@@ -6,7 +6,7 @@ let gameMode = '';
 let difficulty = '';
 let scores = { X: 0, O: 0 };
 
-// Winning combinations on the board
+// Winning combinations on the boardf
 const winningCombinations = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
     [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
@@ -177,10 +177,10 @@ function computerMove() {
     let index;
     switch (difficulty) {
         case 'easy':
-            index = Math.random() < 0.51 ? getBestMove() : getRandomEmptyCell();
+            index = Math.random() < 0.5 ? getBestMove() : getRandomEmptyCell();
             break;
         case 'medium':
-            index = Math.random() < 0.86 ? getBestMove() : getRandomEmptyCell();
+            index = Math.random() < 0.9 ? getBestMove() : getRandomEmptyCell();
             break;
         case 'impossible':
             index = getBestMove();
