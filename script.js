@@ -6,7 +6,7 @@ let gameMode = '';
 let difficulty = '';
 let scores = { X: 0, O: 0 };
 
-// Winning combinations on the boardf
+// Winning combinations on the board
 const winningCombinations = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
     [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
@@ -42,10 +42,11 @@ for (let i = 0; i < 9; i++) {
 }
 const cells = document.querySelectorAll('.cell');
 
-//Event Github Button
+// Event Github Button
 document.getElementById("GithubButton").addEventListener('click', () => {
     location.replace("https://github.com/AmirMohammadPX/Tic-Tac-Toe-Game")
 });
+
 // Event listeners for game mode buttons
 twoPlayersButton.addEventListener('click', () => {
     gameMode = 'two';
@@ -176,13 +177,15 @@ function updateScore(player) {
 function computerMove() {
     let index;
     switch (difficulty) {
-        case 'easy':
-            index = Math.random() < 0.5 ? getBestMove() : getRandomEmptyCell();
+        case 'Easy':
+            // 70% chance of making a smart move, 30% chance of a random move
+            index = Math.random() < 0.7 ? getSmartMove() : getRandomEmptyCell();
             break;
-        case 'medium':
-            index = Math.random() < 0.9 ? getBestMove() : getRandomEmptyCell();
+        case 'Medium':
+            // 90% chance of making a smart move, 10% chance of a random move
+            index = Math.random() < 0.9 ? getSmartMove() : getRandomEmptyCell();
             break;
-        case 'impossible':
+        case 'Impossible':
             index = getBestMove();
             break;
         default:
@@ -200,6 +203,53 @@ function getRandomEmptyCell() {
         return acc;
     }, []);
     return emptyCells[Math.floor(Math.random() * emptyCells.length)];
+}
+
+// Function to get a smart move
+function getSmartMove() {
+    // Check if computer can win in the next move
+    for (let i = 0; i < 9; i++) {
+        if (board[i] === '') {
+            board[i] = 'O';
+            if (checkWinner() === 'O') {
+                board[i] = '';
+                return i;
+            }
+            board[i] = '';
+        }
+    }
+
+    // Check if player can win in the next move and block them
+    for (let i = 0; i < 9; i++) {
+        if (board[i] === '') {
+            board[i] = 'X';
+            if (checkWinner() === 'X') {
+                board[i] = '';
+                return i;
+            }
+            board[i] = '';
+        }
+    }
+
+    // Try to take the center if it's free
+    if (board[4] === '') return 4;
+
+    // Try to take a corner
+    const corners = [0, 2, 6, 8];
+    const freeCorners = corners.filter(i => board[i] === '');
+    if (freeCorners.length > 0) {
+        return freeCorners[Math.floor(Math.random() * freeCorners.length)];
+    }
+
+    // Take any edge
+    const edges = [1, 3, 5, 7];
+    const freeEdges = edges.filter(i => board[i] === '');
+    if (freeEdges.length > 0) {
+        return freeEdges[Math.floor(Math.random() * freeEdges.length)];
+    }
+
+    // If all else fails, make a random move
+    return getRandomEmptyCell();
 }
 
 // Function to get the best move (for impossible difficulty)
@@ -265,7 +315,7 @@ function checkWinner() {
 
 // Function to start the game
 function startGame() {
-    playerXName.textContent="Player";
+    playerXName.textContent = "Player";
     if (gameMode === 'single') {
         statusDisplay.textContent = `Level: ${difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}`;
         playerOIcon.classList.remove('bi-person-fill');
