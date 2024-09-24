@@ -170,13 +170,6 @@ body {
     animation: scaleIn 0.3s ease-in-out;
 }
 
-/* Github Button */
-#GithubButton {
-    position: fixed;
-    top: 5px;
-    left: 5px;
-}
-
 /* Responsive design */
 @media (max-width: 600px) {
 
