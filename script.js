@@ -180,7 +180,7 @@ function computerMove() {
             index = Math.random() < 0.51 ? getBestMove() : getRandomEmptyCell();
             break;
         case 'medium':
-            index = Math.random() < 0.81 ? getBestMove() : getRandomEmptyCell();
+            index = Math.random() < 0.86 ? getBestMove() : getRandomEmptyCell();
             break;
         case 'impossible':
             index = getBestMove();
