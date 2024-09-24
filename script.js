@@ -27,6 +27,8 @@ const scoreXDisplay = document.getElementById('scoreX');
 const scoreODisplay = document.getElementById('scoreO');
 const modeSelection = document.getElementById('modeSelection');
 const playerOIcon = document.getElementById('playerO-icon');
+const playerOName = document.getElementById('playerOName');
+const playerXName = document.getElementById('playerXName');
 const gameBoard = document.getElementById('gameBoard');
 const darkModeToggle = document.getElementById('darkModeToggle');
 
@@ -52,22 +54,19 @@ twoPlayersButton.addEventListener('click', () => {
 
 easyButton.addEventListener('click', () => {
     gameMode = 'single';
-    difficulty = 'easy';
-    statusDisplay.textContent = "Level: Easy";
+    difficulty = 'Easy';
     startGame();
 });
 
 mediumButton.addEventListener('click', () => {
     gameMode = 'single';
-    difficulty = 'medium';
-    statusDisplay.textContent = "Level: Medium";
+    difficulty = 'Medium';
     startGame();
 });
 
 impossibleButton.addEventListener('click', () => {
     gameMode = 'single';
-    difficulty = 'impossible';
-    statusDisplay.textContent = "Level: Impossible";
+    difficulty = 'Impossible';
     startGame();
 });
 
@@ -178,10 +177,10 @@ function computerMove() {
     let index;
     switch (difficulty) {
         case 'easy':
-            index = getRandomEmptyCell();
+            index = Math.random() < 0.41 ? getBestMove() : getRandomEmptyCell();
             break;
         case 'medium':
-            index = Math.random() < 0.5 ? getBestMove() : getRandomEmptyCell();
+            index = Math.random() < 0.76 ? getBestMove() : getRandomEmptyCell();
             break;
         case 'impossible':
             index = getBestMove();
@@ -266,14 +265,17 @@ function checkWinner() {
 
 // Function to start the game
 function startGame() {
+    playerXName.textContent="Player";
     if (gameMode === 'single') {
         statusDisplay.textContent = `Level: ${difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}`;
         playerOIcon.classList.remove('bi-person-fill');
         playerOIcon.classList.add('bi-robot');
+        playerOName.textContent = "Robot";
     } else {
         statusDisplay.textContent = "Two Players Mode";
         playerOIcon.classList.remove('bi-robot');
         playerOIcon.classList.add('bi-person-fill');
+        playerOName.textContent = "Player";
     }
     document.querySelectorAll('.cell.scale-in').forEach(button => {
         button.classList.remove('scale-in');
