@@ -42,11 +42,6 @@ for (let i = 0; i < 9; i++) {
 }
 const cells = document.querySelectorAll('.cell');
 
-// Event Github Button
-document.getElementById("GithubButton").addEventListener('click', () => {
-    location.replace("https://github.com/AmirMohammadPX/Tic-Tac-Toe-Game")
-});
-
 // Event listeners for game mode buttons
 twoPlayersButton.addEventListener('click', () => {
     gameMode = 'two';
