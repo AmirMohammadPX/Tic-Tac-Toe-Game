@@ -59,7 +59,6 @@ body {
     border-radius: 1.5rem;
     box-shadow: var(--shadow-lg);
     min-width: 300px;
-    max-height: 95vh;
     width: max-content;
     transition: transform 0.3s ease;
 }
