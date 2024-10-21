@@ -298,6 +298,7 @@ body {
 
 .reset-animation {
     animation: resetRotate 1s cubic-bezier(1, 0, 1, 1.5);
+    will-change: transform, opacity;
 }
 
 /* Cell visibility animation */
