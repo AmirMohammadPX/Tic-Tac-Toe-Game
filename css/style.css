@@ -203,6 +203,7 @@ body {
 #modeSelection h2 {
     margin: 0;
     font-size: 1.25rem;
+    margin-top: 12px;
     font-weight: 600;
     text-align: center;
 }
