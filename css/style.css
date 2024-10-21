@@ -249,6 +249,10 @@ a {
     color: white;
 }
 
+a:visited {
+    color: white;
+}
+
 /* Animations */
 @keyframes fadeIn {
     from { 
