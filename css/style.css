@@ -219,7 +219,7 @@ body {
     flex-direction: column;
     gap: 0.5rem;
     width: 100%;
-    max-width: 200px;
+    max-width: 300px;
 }
 
 /* Utility class for opacity */
