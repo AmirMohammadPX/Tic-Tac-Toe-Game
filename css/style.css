@@ -1,5 +1,5 @@
 /* Import Google Font - Vazirmatn */
-@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&display=swap');
 
 /* Root variables for theming */
 :root {
@@ -39,7 +39,7 @@
 /* Base body styles */
 body {
     font-family: 'Vazirmatn', system-ui, sans-serif;
-    height: 100vh;
+    height: 90vh;
     margin: 0;
     background-color: var(--bg-color);
     color: var(--text-color);
@@ -53,12 +53,11 @@ body {
 
 /* Main container styles */
 .container {
-    position: relative;
     background: var(--board-bg);
-    padding: 1rem;
+    padding: 1.5rem;
     border-radius: 1.5rem;
     box-shadow: var(--shadow-lg);
-    min-width: 300px;
+    max-width: 95vw;
     max-height: 95vh;
     width: max-content;
     transition: transform 0.3s ease;
@@ -68,7 +67,7 @@ body {
 .container h1 {
     font-size: 1.5rem;
     text-align: center;
-    margin-bottom: .5rem;
+    margin-bottom: 1.5rem;
 }
 
 /* Game board layout */
@@ -76,7 +75,7 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
-    margin: .5rem auto;
+    margin: 1rem auto;
     padding: 0.75rem;
     background: var(--board-bg);
     border-radius: 1rem;
@@ -117,15 +116,9 @@ body {
 /* Cell hover effect */
 .cell:hover {
     background: var(--cell-hover);
+    transform: scale(1.05);
     box-shadow: var(--shadow-md);
 }
-
-@media (hover: hover) and (pointer: fine) {
-    .cell:hover {
-        transform: scale(1.05);
-    }
-}
-
 
 /* Winning cell style */
 .cell.win {
@@ -139,8 +132,8 @@ body {
     display: flex;
     justify-content: center;
     gap: 1rem;
-    margin: .5rem 0;
-    padding: 0.5rem;
+    margin: 1rem 0;
+    padding: 0.75rem;
     background: var(--board-bg);
     border-radius: 1rem;
     box-shadow: var(--shadow-sm);
@@ -169,9 +162,6 @@ body {
     animation: pulse 2s infinite;
 }
 
-#equal{
-    padding: 0.5rem 0rem;
-}
 /* Button styling */
 .btn {
     padding: 0.5rem 1rem;
@@ -185,7 +175,7 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: var(--shadow-sm);
-    margin: 0.15rem;
+    margin: 0.25rem;
 }
 
 /* Button hover effect */
@@ -202,13 +192,11 @@ body {
     align-items: center;
     gap: 1.5rem;
     margin: 1.5rem 0;
-    max-width: 300px;
 }
 
 /* Mode selection headings */
 #modeSelection h2 {
     margin: 0;
-    margin-top: 10px;
     font-size: 1.25rem;
     font-weight: 600;
     text-align: center;
@@ -230,7 +218,7 @@ body {
     flex-direction: column;
     gap: 0.5rem;
     width: 100%;
-    max-width: 300px;
+    max-width: 200px;
 }
 
 /* Utility class for opacity */
@@ -244,29 +232,30 @@ body {
     justify-content: center;
     gap: 1rem;
     margin-top: 1rem;
-    align-items: center;
-    flex-wrap: wrap;
 }
 
 /* GitHub button styling */
 .github-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: fixed;
-    right: 10px;
-    bottom: 10px;
-    padding: 0.5rem 1rem;
+    bottom: 20px;
+    right: 20px;
+    padding: 0.75rem 1.25rem;
     background: var(--btn-bg);
     color: white;
     text-decoration: none;
     border-radius: 0.75rem;
+    font-weight: 500;
     transition: all 0.3s ease;
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-md);
 }
-
 
 .github-btn:hover {
     background: var(--btn-hover);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-lg);
 }
 
 /* Animations */
@@ -308,7 +297,7 @@ body {
 }
 
 .reset-animation {
-    animation: resetRotate 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: resetRotate 1s cubic-bezier(1, 0, 1, 1.5);
 }
 
 /* Cell visibility animation */
@@ -340,8 +329,8 @@ body {
     font-weight: 500;
     font-size: 0.9rem;
     text-align: center;
-    margin: 1rem 0;
-    padding: 0.75rem;
+    margin: 0.75rem 0;
+    padding: 0.5rem;
     border-radius: 0.75rem;
     background: var(--cell-bg);
     transition: all 0.3s ease;
@@ -369,7 +358,7 @@ body {
     .board {
         grid-template-columns: repeat(3, minmax(70px, 80px));
         gap: 6px;
-        padding: 1rem;
+        padding: 0.5rem;
     }
 
     .cell {
@@ -384,5 +373,19 @@ body {
     .btn {
         padding: 0.4rem 0.8rem;
         font-size: 0.8rem;
+    }
+}
+
+/* Large screen adjustments */
+@media (min-width: 1200px) {
+    .container {
+        transform: scale(1.1);
+    }
+}
+
+/* Aspect ratio adjustments */
+@media (max-aspect-ratio: 2/3) {
+    .container {
+        transform: scale(0.9);
     }
 }
