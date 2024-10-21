@@ -67,7 +67,7 @@ body {
 .container h1 {
     font-size: 1.5rem;
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
 }
 
 /* Game board layout */
@@ -75,7 +75,7 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
-    margin: 1rem auto;
+    margin: 0.5rem auto;
     padding: 0.75rem;
     background: var(--board-bg);
     border-radius: 1rem;
@@ -132,7 +132,7 @@ body {
     display: flex;
     justify-content: center;
     gap: 1rem;
-    margin: 1rem 0;
+    margin: 0.5rem 0;
     padding: 0.75rem;
     background: var(--board-bg);
     border-radius: 1rem;
@@ -163,7 +163,7 @@ body {
 }
 
 #equal{
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0;
 }
 
 /* Button styling */
@@ -196,7 +196,7 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
-    margin: 1.5rem 0;
+    margin: 0.5rem 0;
 }
 
 /* Mode selection headings */
@@ -237,7 +237,7 @@ body {
     display: flex;
     justify-content: center;
     gap: 1rem;
-    margin-top: 1rem;
+    margin-top: .5rem;
 }
 
 /* GitHub button styling */
