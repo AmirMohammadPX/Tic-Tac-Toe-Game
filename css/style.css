@@ -39,7 +39,7 @@
 /* Base body styles */
 body {
     font-family: 'Vazirmatn', system-ui, sans-serif;
-    height: 90vh;
+    height: 92vh;
     margin: 0;
     background-color: var(--bg-color);
     color: var(--text-color);
@@ -162,6 +162,10 @@ body {
     animation: pulse 2s infinite;
 }
 
+#equal{
+    padding: 0.5rem 1rem;
+}
+
 /* Button styling */
 .btn {
     padding: 0.5rem 1rem;
@@ -241,8 +245,8 @@ body {
     align-items: center;
     justify-content: center;
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 10px;
+    right: 10px;
     padding: 0.75rem 1.25rem;
     background: var(--btn-bg);
     color: white;
@@ -277,17 +281,14 @@ body {
     100% { transform: scale(1); }
 }
 
-@keyframes resetRotate {
+@keyframes resetAnimation {
     0% {
-        transform: perspective(1000px) rotateY(0deg);
         opacity: 1;
     }
     50% {
-        transform: perspective(1000px) rotateY(180deg);
         opacity: 0.5;
     }
     100% {
-        transform: perspective(1000px) rotateY(360deg);
         opacity: 1;
     }
 }
@@ -298,7 +299,7 @@ body {
 }
 
 .reset-animation {
-    animation: resetRotate 1s cubic-bezier(1, 0, 1, 1.5);
+    animation: resetAnimation 1s cubic-bezier(1, 0, 1, 1.5);
     will-change: transform, opacity;
 }
 
@@ -331,7 +332,7 @@ body {
     font-weight: 500;
     font-size: 0.9rem;
     text-align: center;
-    margin: 0.75rem 0;
+    margin: 0.5rem 0;
     padding: 0.5rem;
     border-radius: 0.75rem;
     background: var(--cell-bg);
