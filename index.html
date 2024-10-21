@@ -16,13 +16,21 @@
 
         <!-- Game mode selection -->
         <div id="modeSelection">
-            <h2>Single Player</h2>
-            <button id="easy" class="btn w-100"><i class="bi bi-star"></i> Easy</button>
-            <button id="medium" class="btn w-100"><i class="bi bi-star-half"></i> Medium</button>
-            <button id="impossible" class="btn w-100"><i class="bi bi-star-fill"></i> Impossible</button>
+            <div class="difficulty-section">
+                <h2>Single Player</h2>
+                <div class="difficulty-buttons">
+                    <button class="btn" id="easy">Easy</button>
+                    <button class="btn" id="medium">Medium</button>
+                    <button class="btn" id="impossible">Impossible</button>
+                </div>
+            </div>
 
-            <h2>Two Players</h2>
-            <button id="twoPlayers" class="btn w-100"><i class="bi bi-people-fill"></i> Two Players</button>
+            <div class="multiplayer-section">
+                <h2>Two Players</h2>
+                <div class="difficulty-buttons">
+                    <button class="btn" id="twoPlayers">Two Players</button>
+                </div>
+            </div>
         </div>
 
         <!-- Game board (initially hidden) -->
@@ -30,11 +38,13 @@
             <!-- Scoreboard -->
             <div id="scoreboard" class="scoreboard">
                 <div id="playerXScore" class="score" dir="ltr">
-                    <i class="bi bi-person-fill"></i> <span contentEditable id="playerXName">Player</span> X: <span id="scoreX">0</span>
+                    <i class="bi bi-person-fill"></i> <span contentEditable id="playerXName">Player</span> X: <span
+                        id="scoreX">0</span>
                 </div>
                 <span id="equal" class="opacity-0">=</span>
                 <div id="playerOScore" class="score" dir="ltr">
-                    <i id="playerO-icon" class="bi bi-person-fill"></i> <span contentEditable id="playerOName">Player</span> O: <span id="scoreO">0</span>
+                    <i id="playerO-icon" class="bi bi-person-fill"></i> <span contentEditable
+                        id="playerOName">Player</span> O: <span id="scoreO">0</span>
                 </div>
             </div>
 
@@ -47,13 +57,12 @@
             </div>
 
             <!-- Game control buttons -->
-            <button id="reset" class="btn"><i class="bi bi-arrow-repeat"></i> New Game</button>
-            <button id="changeMode" class="btn"><i class="bi bi-gear-fill"></i> Change Game Mode</button>
+            <button id="reset" class="btn"><i class="bi bi-arrow-repeat"></i> Reset Game</button>
+            <button id="changeMode" class="btn"><i class="bi bi-plus-lg"></i> New Game</button>
         </div>
-        <br>
         <!-- Github AmirMohammadPX button -->
-        <a href="https://github.com/AmirMohammadPX/Tic-Tac-Toe-Game" target="_blank" class="btn"><i
-                class="bi bi-github"></i> Github</a>
+        <a href="https://github.com/AmirMohammadPX/Tic-Tac-Toe-Game" target="_blank" class="github-btn">
+            <i class="bi bi-github"></i>&nbsp;Github</a>
     </div>
     <!-- Script file -->
     <script src="js/script.js"></script>
