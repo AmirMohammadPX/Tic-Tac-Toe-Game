@@ -55,10 +55,11 @@ body {
 .container {
     position: relative;
     background: var(--board-bg);
-    padding: 1.5rem;
+    padding: 1rem;
     border-radius: 1.5rem;
     box-shadow: var(--shadow-lg);
     min-width: 300px;
+    max-height: 95vh;
     width: max-content;
     transition: transform 0.3s ease;
 }
@@ -249,14 +250,12 @@ body {
 
 /* GitHub button styling */
 .github-btn {
-    display: flex;
-    justify-content: center;
-    margin-top: 1rem;
-    align-items: center;
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
     padding: 0.5rem 1rem;
     background: var(--btn-bg);
     color: white;
-    text-align: center;
     text-decoration: none;
     border-radius: 0.75rem;
     transition: all 0.3s ease;
