@@ -12,6 +12,11 @@
 </head>
 
 <body>
+    <p style="
+    position: fixed; top: 0; padding: 0.5rem 1rem; border-radius: 0.75rem; font-weight: bold; font-size: 0.9rem; background: var(--board-bg); color: var(--text-color); box-shadow: var(--shadow-md); z-index: 1000;">Beta UI</p>
+    <div id="notsupport">
+        <p>Your screen size is not supported</p>
+    </div>
     <div class="container fade-in">
         <h1>Tic Tac Toe Game</h1>
 
@@ -39,13 +44,13 @@
             <!-- Scoreboard -->
             <div id="scoreboard" class="scoreboard">
                 <div id="playerXScore" class="score" dir="ltr">
-                    <i class="bi bi-person-fill"></i> <span contentEditable id="playerXName">Player</span> X: <span
+                    <i class="bi bi-person-fill"></i> <span contentEditable id="playerXName">Player</span>(X):<span
                         id="scoreX">0</span>
                 </div>
                 <span id="equal" class="opacity-0">=</span>
                 <div id="playerOScore" class="score" dir="ltr">
                     <i id="playerO-icon" class="bi bi-person-fill"></i> <span contentEditable
-                        id="playerOName">Player</span> O: <span id="scoreO">0</span>
+                        id="playerOName">Player</span>(O):<span id="scoreO">0</span>
                 </div>
             </div>
 
