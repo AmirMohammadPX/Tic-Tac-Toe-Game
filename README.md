@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/AmirMohammadPX/Tic-Tac-Toe-Game/refs/heads/main/favicon.png" width="200" />
+</p>
+
 # Tic Tac Toe Game - Interactive Web Application
 
 This is an interactive tic-tac-toe game implemented using HTML, CSS and JavaScript. The game has both single and double player modes, with different difficulty levels for the computer opponent.
