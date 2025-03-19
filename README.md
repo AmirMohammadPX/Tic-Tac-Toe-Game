@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/AmirMohammadPX/Tic-Tac-Toe-Game/refs/heads/main/favicon.png" width="200" />
+  <img src="https://raw.githubusercontent.com/AmirMohammadPX/Tic-Tac-Toe-Game/refs/heads/main/favicon.png" alt="Tic Tac Toe Game Icon" width="200" />
 </p>
 
 # Tic Tac Toe Game - Interactive Web Application
