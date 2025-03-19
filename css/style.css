@@ -133,8 +133,8 @@ body {
     box-shadow: var(--shadow-sm);
 }
 
-#playerXScore,
-#playerOScore {
+#player1Score,
+#player2Score {
     align-items: center;
     text-align: center;
 }
