@@ -1,11 +1,13 @@
 //https://github.com/AmirMohammadPX/Tic-Tac-Toe-Game
 // Game state initialization
 const board = ['', '', '', '', '', '', '', '', ''];
-let currentPlayer = 'X';
+let currentPlayer = 'X'; // Current player (X or O)
 let gameActive = false;
 let gameMode = '';
 let difficulty = '';
 let scores = { X: 0, O: 0 };
+let playerSymbol = 'X'; // Player's symbol (X or O)
+let computerSymbol = 'O'; // Computer's symbol (O or X)
 
 // Define winning combinations
 const winningCombinations = [
@@ -71,6 +73,20 @@ document.getElementById('impossible').addEventListener('click', () => {
     startGame();
 });
 
+// Event listener for switching symbols (X or O)
+document.getElementById('switchSymbol').addEventListener('click', () => {
+    if (playerSymbol === 'X') {
+        playerSymbol = 'O'; // Player chooses O
+        computerSymbol = 'X'; // Computer is X
+        document.getElementById('switchSymbol').textContent = 'Switch to X'; // Update button text
+    } else {
+        playerSymbol = 'X'; // Player chooses X
+        computerSymbol = 'O'; // Computer is O
+        document.getElementById('switchSymbol').textContent = 'Switch to O'; // Update button text
+    }
+    currentPlayer = 'X'; // X always starts the game
+});
+
 // Event listeners for game controls
 resetButton.addEventListener('click', resetGame);
 changeModeButton.addEventListener('click', changeMode);
@@ -89,7 +105,7 @@ function changeMode() {
 
     // Hide game board and show mode selection
     gameBoard.style.display = 'none';
-    modeSelection.style.display = 'block';
+    modeSelection.style.display = '';
 
     // Reset the board
     resetBoard();
@@ -106,8 +122,8 @@ function cellClick(cell) {
     updateCell(cell, index);
     checkForWinner();
 
-    // Handle computer move in single player mode
-    if (gameMode === 'single' && gameActive && currentPlayer === 'O') {
+    // Handle computer move in single-player mode
+    if (gameMode === 'single' && gameActive && currentPlayer === computerSymbol) {
         gameActive = false;
         setTimeout(() => computerMove(), 500);
     }
@@ -115,9 +131,9 @@ function cellClick(cell) {
 
 // Function to update cell content
 function updateCell(cell, index) {
-    board[index] = currentPlayer;
-    cell.textContent = currentPlayer;
-    cell.classList.add('scale-in');
+    board[index] = currentPlayer; // Update board state
+    cell.textContent = currentPlayer; // Update cell display
+    cell.classList.add('scale-in'); // Add animation
 }
 
 // Function to switch players
@@ -201,27 +217,25 @@ function updateScore(player) {
     scoreODisplay.textContent = scores.O;
 }
 
-// Computer move logic
+// Function to handle computer move
 function computerMove() {
     let index;
     switch (difficulty) {
         case 'Easy':
-            // 70% smart moves, 30% random moves
-            index = Math.random() < 0.7 ? getSmartMove() : getRandomEmptyCell();
+            index = Math.random() < 0.7 ? getSmartMove() : getRandomEmptyCell(); // 70% smart moves
             break;
         case 'Medium':
-            // 90% smart moves, 10% random moves
-            index = Math.random() < 0.9 ? getSmartMove() : getRandomEmptyCell();
+            index = Math.random() < 0.9 ? getSmartMove() : getRandomEmptyCell(); // 90% smart moves
             break;
         case 'Impossible':
-            index = getBestMove();
+            index = getBestMove(); // Always best move
             break;
         default:
-            index = getRandomEmptyCell();
+            index = getRandomEmptyCell(); // Random move
     }
     const cell = document.querySelector(`[data-index="${index}"]`);
-    updateCell(cell, index);
-    checkForWinner();
+    updateCell(cell, index); // Update the cell
+    checkForWinner(); // Check for a winner
 }
 
 // Function to get random empty cell
@@ -233,13 +247,13 @@ function getRandomEmptyCell() {
     return emptyCells[Math.floor(Math.random() * emptyCells.length)];
 }
 
-// Function to get smart move
+// Function to get a smart move (block or win)
 function getSmartMove() {
-    // Check for winning move
+    // Check for a winning move
     for (let i = 0; i < 9; i++) {
         if (board[i] === '') {
-            board[i] = 'O';
-            if (checkWinner() === 'O') {
+            board[i] = computerSymbol;
+            if (checkWinner() === computerSymbol) {
                 board[i] = '';
                 return i;
             }
@@ -250,8 +264,8 @@ function getSmartMove() {
     // Block player's winning move
     for (let i = 0; i < 9; i++) {
         if (board[i] === '') {
-            board[i] = 'X';
-            if (checkWinner() === 'X') {
+            board[i] = playerSymbol;
+            if (checkWinner() === playerSymbol) {
                 board[i] = '';
                 return i;
             }
@@ -276,16 +290,16 @@ function getSmartMove() {
         return freeEdges[Math.floor(Math.random() * freeEdges.length)];
     }
 
-    return getRandomEmptyCell();
+    return getRandomEmptyCell(); // Fallback to random move
 }
 
-// Function to get best move (Minimax algorithm)
+// Function to get the best move (Minimax algorithm)
 function getBestMove() {
     let bestScore = -Infinity;
     let bestMove;
     for (let i = 0; i < 9; i++) {
         if (board[i] === '') {
-            board[i] = 'O';
+            board[i] = computerSymbol;
             let score = minimax(board, 0, false);
             board[i] = '';
             if (score > bestScore) {
@@ -299,7 +313,7 @@ function getBestMove() {
 
 // Minimax algorithm implementation
 function minimax(board, depth, isMaximizing) {
-    const scores = { X: -1, O: 1, tie: 0 };
+    const scores = { X: -1, O: 1, tie: 0 }; // Scores for X, O, and tie
     const result = checkWinner();
     if (result !== null) return scores[result];
 
@@ -307,7 +321,7 @@ function minimax(board, depth, isMaximizing) {
         let bestScore = -Infinity;
         for (let i = 0; i < 9; i++) {
             if (board[i] === '') {
-                board[i] = 'O';
+                board[i] = computerSymbol;
                 let score = minimax(board, depth + 1, false);
                 board[i] = '';
                 bestScore = Math.max(score, bestScore);
@@ -318,7 +332,7 @@ function minimax(board, depth, isMaximizing) {
         let bestScore = Infinity;
         for (let i = 0; i < 9; i++) {
             if (board[i] === '') {
-                board[i] = 'X';
+                board[i] = playerSymbol;
                 let score = minimax(board, depth + 1, true);
                 board[i] = '';
                 bestScore = Math.min(score, bestScore);
@@ -328,7 +342,7 @@ function minimax(board, depth, isMaximizing) {
     }
 }
 
-// Function to check winner for minimax
+// Function to check for a winner (for Minimax)
 function checkWinner() {
     for (const combination of winningCombinations) {
         const [a, b, c] = combination;
@@ -348,12 +362,24 @@ function startGame() {
         playerOIcon.classList.add('bi-robot');
         playerXName.textContent = "You";
         playerOName.textContent = "Robot";
+
+        // Update player and computer symbols
+        if (playerSymbol === 'X') {
+            currentPlayer = 'X'; // Player starts as X
+        } else {
+            currentPlayer = 'O'; // Player starts as O
+            // If player is O, computer (X) makes the first move
+            setTimeout(() => computerMove(), 500);
+        }
     } else {
         statusDisplay.textContent = "Two Players";
         playerOIcon.classList.remove('bi-robot');
         playerOIcon.classList.add('bi-person-fill');
         playerXName.textContent = "Player1";
         playerOName.textContent = "Player2";
+
+        // In two-player mode, X always starts
+        currentPlayer = 'X';
     }
 
     // Reset animations and styles
@@ -372,7 +398,7 @@ function startGame() {
 
     // Show game board
     modeSelection.style.display = 'none';
-    gameBoard.style.display = 'block';
+    gameBoard.style.display = '';
 
     // Animate cells appearance
     cells.forEach((cell, index) => {
