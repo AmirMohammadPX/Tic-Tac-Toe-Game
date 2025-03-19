@@ -77,11 +77,11 @@ document.getElementById('switchSymbol').addEventListener('click', () => {
     if (playerSymbol === 'X') {
         playerSymbol = 'O'; // Player chooses O
         computerSymbol = 'X'; // Computer is X
-        document.getElementById('switchSymbol').textContent = 'Switch to X'; // Update button text
+        document.getElementById('switchSymbol').textContent = 'Symbol is O'; // Update button text
     } else {
         playerSymbol = 'X'; // Player chooses X
         computerSymbol = 'O'; // Computer is O
-        document.getElementById('switchSymbol').textContent = 'Switch to O'; // Update button text
+        document.getElementById('switchSymbol').textContent = 'Symbol is X'; // Update button text
     }
 
     // If player chooses O in single-player mode, computer makes the first move
