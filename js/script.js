@@ -1,11 +1,10 @@
-//https://github.com/AmirMohammadPX/Tic-Tac-Toe-Game
 // Game state initialization
-const board = ['', '', '', '', '', '', '', '', ''];
+const board = ['', '', '', '', '', '', '', '', '']; // Represents the Tic-Tac-Toe board
 let currentPlayer = 'X'; // Current player (X or O)
-let gameActive = false;
-let gameMode = '';
-let difficulty = '';
-let scores = { X: 0, O: 0 };
+let gameActive = false; // Tracks if the game is active
+let gameMode = ''; // Tracks the game mode (single or two players)
+let difficulty = ''; // Tracks the difficulty level in single-player mode
+let scores = { X: 0, O: 0 }; // Tracks the scores for X and O
 let playerSymbol = 'X'; // Player's symbol (X or O)
 let computerSymbol = 'O'; // Computer's symbol (O or X)
 
@@ -22,12 +21,12 @@ const equalDisplay = document.getElementById('equal');
 const scoreBoard = document.getElementById('scoreboard');
 const resetButton = document.getElementById('reset');
 const changeModeButton = document.getElementById('changeMode');
-const playerOName = document.getElementById('playerOName');
-const playerXName = document.getElementById('playerXName');
+const player2Name = document.getElementById('player2Name');
+const player1Name = document.getElementById('player1Name');
 const scoreXDisplay = document.getElementById('scoreX');
 const scoreODisplay = document.getElementById('scoreO');
 const modeSelection = document.getElementById('modeSelection');
-const playerOIcon = document.getElementById('playerO-icon');
+const player2Icon = document.getElementById('player2-icon');
 const gameBoard = document.getElementById('gameBoard');
 
 // Create game board cells
@@ -84,7 +83,17 @@ document.getElementById('switchSymbol').addEventListener('click', () => {
         computerSymbol = 'O'; // Computer is O
         document.getElementById('switchSymbol').textContent = 'Switch to O'; // Update button text
     }
-    currentPlayer = 'X'; // X always starts the game
+
+    // If player chooses O in single-player mode, computer makes the first move
+    if (playerSymbol === 'O' && gameMode === 'single') {
+        currentPlayer = 'X'; // Computer starts
+        setTimeout(() => computerMove(), 500);
+    } else {
+        currentPlayer = 'X'; // Player starts
+    }
+
+    // Update game status
+    updateStatus();
 });
 
 // Event listeners for game controls
@@ -144,12 +153,12 @@ function changePlayer() {
 
 // Function to update game status display
 function updateStatus() {
-    if (currentPlayer === 'X') {
-        document.getElementById('playerXScore').classList.add('selectPlayerScore');
-        document.getElementById('playerOScore').classList.remove('selectPlayerScore');
+    if (currentPlayer === playerSymbol) {
+        document.getElementById('player1Score').classList.add('selectPlayerScore');
+        document.getElementById('player2Score').classList.remove('selectPlayerScore');
     } else {
-        document.getElementById('playerXScore').classList.remove('selectPlayerScore');
-        document.getElementById('playerOScore').classList.add('selectPlayerScore');
+        document.getElementById('player1Score').classList.remove('selectPlayerScore');
+        document.getElementById('player2Score').classList.add('selectPlayerScore');
     }
     gameActive = true;
 }
@@ -161,19 +170,19 @@ function checkForWinner() {
         if (board[a] && board[a] === board[b] && board[a] === board[c]) {
             gameActive = false;
             // Remove selection highlights
-            document.getElementById('playerXScore').classList.remove('selectPlayerScore');
-            document.getElementById('playerOScore').classList.remove('selectPlayerScore');
+            document.getElementById('player1Score').classList.remove('selectPlayerScore');
+            document.getElementById('player2Score').classList.remove('selectPlayerScore');
 
             // Highlight winner
-            if (currentPlayer === 'X') {
-                document.getElementById('playerXScore').classList.add('winPlayerScore');
-            } else {
-                document.getElementById('playerOScore').classList.add('winPlayerScore');
+            if (board[a] === playerSymbol) {
+                document.getElementById('player1Score').classList.add('winPlayerScore');
+            } else if (board[a] === computerSymbol) {
+                document.getElementById('player2Score').classList.add('winPlayerScore');
             }
 
             // Highlight winning cells
             highlightWinningCells(combination);
-            updateScore(currentPlayer);
+            updateScore(board[a]);
 
             // Auto reset after delay
             setTimeout(() => {
@@ -186,8 +195,8 @@ function checkForWinner() {
 
     // Check for draw
     if (!board.includes('')) {
-        document.getElementById('playerXScore').classList.remove('selectPlayerScore');
-        document.getElementById('playerOScore').classList.remove('selectPlayerScore');
+        document.getElementById('player1Score').classList.remove('selectPlayerScore');
+        document.getElementById('player2Score').classList.remove('selectPlayerScore');
         equalDisplay.classList.remove('opacity-0');
         scoreboard.classList.add('selectPlayerScore');
         gameActive = false;
@@ -212,7 +221,11 @@ function highlightWinningCells(combination) {
 
 // Function to update score
 function updateScore(player) {
-    scores[player]++;
+    if (player === 'X') {
+        scores[playerSymbol]++;
+    } else {
+        scores[computerSymbol]++;
+    }
     scoreXDisplay.textContent = scores.X;
     scoreODisplay.textContent = scores.O;
 }
@@ -247,12 +260,12 @@ function getRandomEmptyCell() {
     return emptyCells[Math.floor(Math.random() * emptyCells.length)];
 }
 
-// Function to get a smart move (block or win)
+// Function to get smart move
 function getSmartMove() {
-    // Check for a winning move
+    // Check for a winning move for the computer
     for (let i = 0; i < 9; i++) {
         if (board[i] === '') {
-            board[i] = computerSymbol;
+            board[i] = computerSymbol; // Use computerSymbol instead of 'O'
             if (checkWinner() === computerSymbol) {
                 board[i] = '';
                 return i;
@@ -261,10 +274,10 @@ function getSmartMove() {
         }
     }
 
-    // Block player's winning move
+    // Block the player's winning move
     for (let i = 0; i < 9; i++) {
         if (board[i] === '') {
-            board[i] = playerSymbol;
+            board[i] = playerSymbol; // Use playerSymbol instead of 'X'
             if (checkWinner() === playerSymbol) {
                 board[i] = '';
                 return i;
@@ -293,13 +306,13 @@ function getSmartMove() {
     return getRandomEmptyCell(); // Fallback to random move
 }
 
-// Function to get the best move (Minimax algorithm)
+// Function to get best move (Minimax algorithm)
 function getBestMove() {
     let bestScore = -Infinity;
     let bestMove;
     for (let i = 0; i < 9; i++) {
         if (board[i] === '') {
-            board[i] = computerSymbol;
+            board[i] = computerSymbol; // Use computerSymbol instead of 'O'
             let score = minimax(board, 0, false);
             board[i] = '';
             if (score > bestScore) {
@@ -313,7 +326,7 @@ function getBestMove() {
 
 // Minimax algorithm implementation
 function minimax(board, depth, isMaximizing) {
-    const scores = { X: -1, O: 1, tie: 0 }; // Scores for X, O, and tie
+    const scores = { [playerSymbol]: -1, [computerSymbol]: 1, tie: 0 }; // Use dynamic symbols
     const result = checkWinner();
     if (result !== null) return scores[result];
 
@@ -321,7 +334,7 @@ function minimax(board, depth, isMaximizing) {
         let bestScore = -Infinity;
         for (let i = 0; i < 9; i++) {
             if (board[i] === '') {
-                board[i] = computerSymbol;
+                board[i] = computerSymbol; // Use computerSymbol instead of 'O'
                 let score = minimax(board, depth + 1, false);
                 board[i] = '';
                 bestScore = Math.max(score, bestScore);
@@ -332,7 +345,7 @@ function minimax(board, depth, isMaximizing) {
         let bestScore = Infinity;
         for (let i = 0; i < 9; i++) {
             if (board[i] === '') {
-                board[i] = playerSymbol;
+                board[i] = playerSymbol; // Use playerSymbol instead of 'X'
                 let score = minimax(board, depth + 1, true);
                 board[i] = '';
                 bestScore = Math.min(score, bestScore);
@@ -347,36 +360,35 @@ function checkWinner() {
     for (const combination of winningCombinations) {
         const [a, b, c] = combination;
         if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-            return board[a];
+            return board[a]; // Returns the symbol of the winner
         }
     }
-    if (!board.includes('')) return 'tie';
-    return null;
+    if (!board.includes('')) return 'tie'; // If the board is full and no winner, it's a tie
+    return null; // No winner yet
 }
 
 // Function to start game
 function startGame() {
     if (gameMode === 'single') {
         statusDisplay.textContent = `Single Player(${difficulty.charAt(0).toUpperCase() + difficulty.slice(1)})`;
-        playerOIcon.classList.remove('bi-person-fill');
-        playerOIcon.classList.add('bi-robot');
-        playerXName.textContent = "You";
-        playerOName.textContent = "Robot";
+        player2Icon.classList.remove('bi-person-fill');
+        player2Icon.classList.add('bi-robot');
+        player1Name.textContent = "You";
+        player2Name.textContent = "Robot";
 
-        // Update player and computer symbols
-        if (playerSymbol === 'X') {
-            currentPlayer = 'X'; // Player starts as X
-        } else {
-            currentPlayer = 'O'; // Player starts as O
-            // If player is O, computer (X) makes the first move
+        // If player chooses O, computer makes the first move
+        if (playerSymbol === 'O') {
+            currentPlayer = 'X'; // Computer starts
             setTimeout(() => computerMove(), 500);
+        } else {
+            currentPlayer = 'X'; // Player starts
         }
     } else {
         statusDisplay.textContent = "Two Players";
-        playerOIcon.classList.remove('bi-robot');
-        playerOIcon.classList.add('bi-person-fill');
-        playerXName.textContent = "Player1";
-        playerOName.textContent = "Player2";
+        player2Icon.classList.remove('bi-robot');
+        player2Icon.classList.add('bi-person-fill');
+        player1Name.textContent = "Player1";
+        player2Name.textContent = "Player2";
 
         // In two-player mode, X always starts
         currentPlayer = 'X';
@@ -386,8 +398,10 @@ function startGame() {
     document.querySelectorAll('.cell.scale-in').forEach(button => {
         button.classList.remove('scale-in');
     });
-    document.getElementById('playerXScore').classList.remove('winPlayerScore');
-    document.getElementById('playerOScore').classList.remove('winPlayerScore');
+    document.getElementById('player1Score').classList.remove('winPlayerScore');
+    document.getElementById('player2Score').classList.remove('winPlayerScore');
+    document.getElementById('player1SymbolForDisplay').textContent="("+playerSymbol+"):";
+    document.getElementById('player2SymbolForDisplay').textContent="("+computerSymbol+"):";
     equalDisplay.classList.add('opacity-0');
     scoreboard.classList.remove('selectPlayerScore');
 
@@ -414,10 +428,19 @@ function resetGame() {
     document.querySelectorAll('.cell.scale-in').forEach(button => {
         button.classList.remove('scale-in');
     });
-    document.getElementById('playerXScore').classList.remove('winPlayerScore');
-    document.getElementById('playerOScore').classList.remove('winPlayerScore');
+    document.getElementById('player1Score').classList.remove('winPlayerScore');
+    document.getElementById('player2Score').classList.remove('winPlayerScore');
     equalDisplay.classList.add('opacity-0');
     scoreboard.classList.remove('selectPlayerScore');
+
+    // Update player and computer symbols
+    if (playerSymbol === 'X') {
+        currentPlayer = 'X'; // Player starts as X
+    } else {
+        currentPlayer = 'O'; // Player starts as O
+        // If player is O, computer (X) makes the first move
+        setTimeout(() => computerMove(), 500);
+    }
 
     resetBoard();
     gameActive = true;
